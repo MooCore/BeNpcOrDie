@@ -165,7 +165,7 @@ if queueteleport then
     player.OnTeleport:Connect(function(State)
         if queueteleport and (not TeleportCheck) then
             TeleportCheck = true
-            queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Bac0nHck/Scripts/refs/heads/main/BeNpcOrDie'))()")
+            queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/MooCore/BeNpcOrDie/refs/heads/main/Main.lua'))()")
         end
     end)
 end
