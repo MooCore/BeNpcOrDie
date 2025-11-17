@@ -21,19 +21,19 @@ ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
 local ToggleButton = Instance.new("TextButton")
 ToggleButton.Name = "ToggleButton"
-ToggleButton.Size = UDim2.new(0, 50, 0, 50) -- Smaller
-ToggleButton.Position = UDim2.new(0, 25, 0.5, -25)
+ToggleButton.Size = UDim2.new(0, 40, 0, 40) -- Even smaller
+ToggleButton.Position = UDim2.new(0, 20, 0.5, -20)
 ToggleButton.BackgroundColor3 = Color3.fromRGB(30, 25, 45)
 ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.Text = "M"
-ToggleButton.TextSize = 20 -- Smaller
+ToggleButton.TextSize = 16 -- Smaller
 ToggleButton.Font = Enum.Font.GothamBlack
 ToggleButton.BorderSizePixel = 0
 ToggleButton.ZIndex = 100
 ToggleButton.AutoButtonColor = false
 
 local UICorner1 = Instance.new("UICorner")
-UICorner1.CornerRadius = UDim.new(0, 12)
+UICorner1.CornerRadius = UDim.new(0, 10)
 UICorner1.Parent = ToggleButton
 
 local ButtonGradient = Instance.new("UIGradient")
@@ -55,15 +55,15 @@ ToggleButton.Parent = ScreenGui
 -- Set GUI size to 400x250
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 400, 0, 50) -- Smaller closed height
-MainFrame.Position = UDim2.new(0, 85, 0, 25)
+MainFrame.Size = UDim2.new(0, 380, 0, 45) -- Smaller closed height
+MainFrame.Position = UDim2.new(0.5, -190, 0.5, -125) -- Centered
 MainFrame.BackgroundColor3 = Color3.fromRGB(20, 15, 35)
 MainFrame.BorderSizePixel = 0
 MainFrame.ClipsDescendants = true
 MainFrame.Visible = false
 
 local UICorner2 = Instance.new("UICorner")
-UICorner2.CornerRadius = UDim.new(0, 12)
+UICorner2.CornerRadius = UDim.new(0, 10)
 UICorner2.Parent = MainFrame
 
 local FrameGradient = Instance.new("UIGradient")
@@ -73,22 +73,38 @@ FrameGradient.Color = ColorSequence.new({
 })
 FrameGradient.Parent = MainFrame
 
-local FrameStroke = Instance.new("UIStroke")
-FrameStroke.Color = Color3.fromRGB(100, 80, 180)
-FrameStroke.Thickness = 2
-FrameStroke.Parent = MainFrame
+-- RGB Rainbow Border
+local RainbowStroke = Instance.new("UIStroke")
+RainbowStroke.Color = Color3.fromRGB(255, 0, 0)
+RainbowStroke.Thickness = 3
+RainbowStroke.Parent = MainFrame
+
+-- Rainbow animation
+spawn(function()
+    while true do
+        for i = 0, 1, 0.01 do
+            local r = math.sin(i * math.pi * 2 + 0) * 0.5 + 0.5
+            local g = math.sin(i * math.pi * 2 + 2) * 0.5 + 0.5
+            local b = math.sin(i * math.pi * 2 + 4) * 0.5 + 0.5
+            RainbowStroke.Color = Color3.new(r, g, b)
+            wait(0.03)
+        end
+    end
+end)
 
 MainFrame.Parent = ScreenGui
 
 local TitleBar = Instance.new("Frame")
 TitleBar.Name = "TitleBar"
-TitleBar.Size = UDim2.new(1, 0, 0, 50) -- Smaller
+TitleBar.Size = UDim2.new(1, 0, 0, 40) -- Smaller
 TitleBar.Position = UDim2.new(0, 0, 0, 0)
 TitleBar.BackgroundColor3 = Color3.fromRGB(40, 35, 60)
 TitleBar.BorderSizePixel = 0
+TitleBar.Active = true -- Make draggable
+TitleBar.Draggable = true -- Make draggable
 
 local UICorner3 = Instance.new("UICorner")
-UICorner3.CornerRadius = UDim.new(0, 12)
+UICorner3.CornerRadius = UDim.new(0, 10)
 UICorner3.Parent = TitleBar
 
 local TitleGradient = Instance.new("UIGradient")
@@ -101,11 +117,11 @@ TitleGradient.Parent = TitleBar
 local TitleLabel = Instance.new("TextLabel")
 TitleLabel.Name = "TitleLabel"
 TitleLabel.Size = UDim2.new(1, -20, 1, 0)
-TitleLabel.Position = UDim2.new(0, 20, 0, 0)
+TitleLabel.Position = UDim2.new(0, 10, 0, 0) -- More centered
 TitleLabel.BackgroundTransparency = 1
 TitleLabel.Text = "MooCore NpcOrDie"
 TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleLabel.TextSize = 16 -- Smaller
+TitleLabel.TextSize = 14 -- Smaller
 TitleLabel.Font = Enum.Font.GothamBold
 TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 TitleLabel.Parent = TitleBar
@@ -114,8 +130,8 @@ TitleBar.Parent = MainFrame
 
 local TabButtons = Instance.new("Frame")
 TabButtons.Name = "TabButtons"
-TabButtons.Size = UDim2.new(1, 0, 0, 35) -- Smaller
-TabButtons.Position = UDim2.new(0, 0, 0, 50)
+TabButtons.Size = UDim2.new(1, 0, 0, 30) -- Smaller
+TabButtons.Position = UDim2.new(0, 0, 0, 40)
 TabButtons.BackgroundColor3 = Color3.fromRGB(30, 25, 45)
 TabButtons.BorderSizePixel = 0
 TabButtons.Parent = MainFrame
@@ -123,10 +139,10 @@ TabButtons.Parent = MainFrame
 -- Scrolling content frame
 local ContentScrollingFrame = Instance.new("ScrollingFrame")
 ContentScrollingFrame.Name = "ContentScrollingFrame"
-ContentScrollingFrame.Size = UDim2.new(1, 0, 1, -85) -- Adjusted for smaller title/tabs
-ContentScrollingFrame.Position = UDim2.new(0, 0, 0, 85)
+ContentScrollingFrame.Size = UDim2.new(1, 0, 1, -70) -- Adjusted for smaller title/tabs
+ContentScrollingFrame.Position = UDim2.new(0, 0, 0, 70)
 ContentScrollingFrame.BackgroundTransparency = 1
-ContentScrollingFrame.ScrollBarThickness = 4
+ContentScrollingFrame.ScrollBarThickness = 3
 ContentScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(100, 80, 180)
 ContentScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 400)
 ContentScrollingFrame.Parent = MainFrame
@@ -140,8 +156,8 @@ ContentFrame.Parent = ContentScrollingFrame
 
 local NotificationFrame = Instance.new("Frame")
 NotificationFrame.Name = "NotificationFrame"
-NotificationFrame.Size = UDim2.new(0, 350, 0, 120) -- Smaller
-NotificationFrame.Position = UDim2.new(1, -360, 1, -130)
+NotificationFrame.Size = UDim2.new(0, 320, 0, 100) -- Smaller
+NotificationFrame.Position = UDim2.new(1, -330, 1, -110)
 NotificationFrame.BackgroundTransparency = 1
 NotificationFrame.Parent = ScreenGui
 
@@ -184,8 +200,7 @@ local featureStates = {
     ToggleSpeed = false,
     ToggleJump = false,
     FullToggle = false,
-    SheriffToggle = false,
-    ServerHopToggle = false
+    SheriffToggle = false
 }
 
 local connections = {
@@ -201,19 +216,18 @@ local connections = {
     togglespeed = nil,
     togglejump = nil,
     full = nil,
-    sheriff = nil,
-    serverhop = nil
+    sheriff = nil
 }
 
 local function showNotification(title, message, color)
     local Notification = Instance.new("Frame")
-    Notification.Size = UDim2.new(1, 0, 0, 60) -- Smaller
+    Notification.Size = UDim2.new(1, 0, 0, 50) -- Smaller
     Notification.Position = UDim2.new(0, 0, 1, 0)
     Notification.BackgroundColor3 = Color3.fromRGB(25, 20, 45)
     Notification.BorderSizePixel = 0
     
     local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 8)
+    UICorner.CornerRadius = UDim.new(0, 6)
     UICorner.Parent = Notification
     
     local UIStroke = Instance.new("UIStroke")
@@ -222,23 +236,23 @@ local function showNotification(title, message, color)
     UIStroke.Parent = Notification
     
     local Title = Instance.new("TextLabel")
-    Title.Size = UDim2.new(1, -20, 0, 20) -- Smaller
-    Title.Position = UDim2.new(0, 15, 0, 8)
+    Title.Size = UDim2.new(1, -15, 0, 18) -- Smaller
+    Title.Position = UDim2.new(0, 10, 0, 6)
     Title.BackgroundTransparency = 1
     Title.Text = title
     Title.TextColor3 = color
-    Title.TextSize = 14 -- Smaller
+    Title.TextSize = 12 -- Smaller
     Title.Font = Enum.Font.GothamBold
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.Parent = Notification
     
     local Message = Instance.new("TextLabel")
-    Message.Size = UDim2.new(1, -20, 0, 30) -- Smaller
-    Message.Position = UDim2.new(0, 15, 0, 28)
+    Message.Size = UDim2.new(1, -15, 0, 25) -- Smaller
+    Message.Position = UDim2.new(0, 10, 0, 24)
     Message.BackgroundTransparency = 1
     Message.Text = message
     Message.TextColor3 = Color3.fromRGB(220, 220, 255)
-    Message.TextSize = 12 -- Smaller
+    Message.TextSize = 10 -- Smaller
     Message.Font = Enum.Font.Gotham
     Message.TextXAlignment = Enum.TextXAlignment.Left
     Message.TextYAlignment = Enum.TextYAlignment.Top
@@ -246,31 +260,31 @@ local function showNotification(title, message, color)
     
     Notification.Parent = NotificationFrame
     
-    local slideIn = TweenService:Create(Notification, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0, 0)})
-    local slideOut = TweenService:Create(Notification, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Position = UDim2.new(0, 0, 1, 0)})
+    local slideIn = TweenService:Create(Notification, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0, 0)})
+    local slideOut = TweenService:Create(Notification, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Position = UDim2.new(0, 0, 1, 0)})
     
     slideIn:Play()
-    wait(3.5)
+    wait(3)
     slideOut:Play()
-    wait(0.4)
+    wait(0.3)
     Notification:Destroy()
 end
 
 local function createTabButton(name, position)
     local TabButton = Instance.new("TextButton")
     TabButton.Name = name .. "Tab"
-    TabButton.Size = UDim2.new(0.25, 0, 1, 0) -- Adjusted for 4 tabs
+    TabButton.Size = UDim2.new(0.25, 0, 1, 0)
     TabButton.Position = position
     TabButton.BackgroundColor3 = Color3.fromRGB(35, 30, 55)
     TabButton.TextColor3 = Color3.fromRGB(200, 200, 255)
     TabButton.Text = name
-    TabButton.TextSize = 10 -- Smaller
+    TabButton.TextSize = 9 -- Smaller
     TabButton.Font = Enum.Font.GothamBold
     TabButton.BorderSizePixel = 0
     TabButton.AutoButtonColor = false
     
     local TabCorner = Instance.new("UICorner")
-    TabCorner.CornerRadius = UDim.new(0, 6)
+    TabCorner.CornerRadius = UDim.new(0, 5)
     TabCorner.Parent = TabButton
     
     TabButton.Parent = TabButtons
@@ -282,15 +296,15 @@ local toggleStates = {}
 local function createToggle(name, parent, position)
     local ToggleFrame = Instance.new("Frame")
     ToggleFrame.Name = name .. "Toggle"
-    ToggleFrame.Size = UDim2.new(1, -15, 0, 28) -- Smaller
+    ToggleFrame.Size = UDim2.new(1, -20, 0, 24) -- Smaller
     ToggleFrame.Position = position
     ToggleFrame.BackgroundTransparency = 1
     ToggleFrame.Parent = parent
     
     local ToggleButton = Instance.new("TextButton")
     ToggleButton.Name = "Button"
-    ToggleButton.Size = UDim2.new(0, 50, 0, 22) -- Smaller
-    ToggleButton.Position = UDim2.new(1, -55, 0.5, -11)
+    ToggleButton.Size = UDim2.new(0, 45, 0, 18) -- Smaller
+    ToggleButton.Position = UDim2.new(1, -50, 0.5, -9)
     ToggleButton.BackgroundColor3 = Color3.fromRGB(45, 40, 70)
     ToggleButton.Text = ""
     ToggleButton.BorderSizePixel = 0
@@ -302,8 +316,8 @@ local function createToggle(name, parent, position)
     
     local ToggleIndicator = Instance.new("Frame")
     ToggleIndicator.Name = "Indicator"
-    ToggleIndicator.Size = UDim2.new(0, 18, 0, 18) -- Smaller
-    ToggleIndicator.Position = UDim2.new(0, 2, 0.5, -9)
+    ToggleIndicator.Size = UDim2.new(0, 14, 0, 14) -- Smaller
+    ToggleIndicator.Position = UDim2.new(0, 2, 0.5, -7)
     ToggleIndicator.BackgroundColor3 = Color3.fromRGB(220, 80, 80)
     ToggleIndicator.BorderSizePixel = 0
     
@@ -313,17 +327,17 @@ local function createToggle(name, parent, position)
     
     local ToggleLabel = Instance.new("TextLabel")
     ToggleLabel.Name = "Label"
-    ToggleLabel.Size = UDim2.new(1, -60, 1, 0)
-    ToggleLabel.Position = UDim2.new(0, 0, 0, 0)
+    ToggleLabel.Size = UDim2.new(1, -55, 1, 0)
+    ToggleLabel.Position = UDim2.new(0, 5, 0, 0) -- More centered
     ToggleLabel.BackgroundTransparency = 1
     ToggleLabel.Text = name
     ToggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ToggleLabel.TextSize = 12 -- Smaller
+    ToggleLabel.TextSize = 10 -- Smaller
     ToggleLabel.Font = Enum.Font.Gotham
     ToggleLabel.TextXAlignment = Enum.TextXAlignment.Left
     ToggleLabel.Parent = ToggleFrame
     
-    local toggleTweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local toggleTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
     
     ToggleIndicator.Parent = ToggleButton
     ToggleButton.Parent = ToggleFrame
@@ -331,7 +345,7 @@ local function createToggle(name, parent, position)
     ToggleButton.MouseButton1Click:Connect(function()
         toggleStates[name] = not toggleStates[name]
         
-        local targetPosition = toggleStates[name] and UDim2.new(1, -20, 0.5, -9) or UDim2.new(0, 2, 0.5, -9)
+        local targetPosition = toggleStates[name] and UDim2.new(1, -17, 0.5, -7) or UDim2.new(0, 2, 0.5, -7)
         local targetColor = toggleStates[name] and Color3.fromRGB(80, 220, 120) or Color3.fromRGB(220, 80, 80)
         local buttonColor = toggleStates[name] and Color3.fromRGB(65, 120, 85) or Color3.fromRGB(75, 70, 95)
         
@@ -349,9 +363,6 @@ local function createToggle(name, parent, position)
             else
                 showNotification("ESP Disabled", "No longer highlighting players", Color3.fromRGB(220, 80, 80))
             end
-        elseif name == "Speed Boost" then
-            featureStates.SpeedBoost = toggleStates[name]
-            updateSpeed()
         elseif name == "Noclip" then
             featureStates.Noclip = toggleStates[name]
             updateNoclip()
@@ -366,7 +377,7 @@ local function createToggle(name, parent, position)
             featureStates.AutoTask = toggleStates[name]
         elseif name == "Auto Task 2" then
             featureStates.AutoTask2 = toggleStates[name]
-        elseif name == "Instance Task" then
+        elseif name == "Auto Instance Task" then
             featureStates.InstanceTask = toggleStates[name]
         elseif name == "Inf Stamina" then
             featureStates.InfStamina = toggleStates[name]
@@ -380,8 +391,6 @@ local function createToggle(name, parent, position)
             featureStates.FullToggle = toggleStates[name]
         elseif name == "Reset if Sheriff" then
             featureStates.SheriffToggle = toggleStates[name]
-        elseif name == "Auto Server Hop" then
-            featureStates.ServerHopToggle = toggleStates[name]
         end
         
         if name ~= "ESP" and name ~= "Aimlock" then
@@ -392,7 +401,7 @@ local function createToggle(name, parent, position)
     return ToggleFrame, ToggleButton
 end
 
--- Create tabs (only 4 now: Main, Farm, Tasks, Player)
+-- Create tabs
 local MainTab = Instance.new("Frame")
 MainTab.Name = "MainTab"
 MainTab.Size = UDim2.new(1, 0, 0, 400)
@@ -425,82 +434,111 @@ PlayerTab.BackgroundTransparency = 1
 PlayerTab.Visible = false
 PlayerTab.Parent = ContentFrame
 
--- Create toggles with proper spacing (smaller)
-local MainESP, MainESPToggle = createToggle("ESP", MainTab, UDim2.new(0, 0, 0, 15))
-local MainAimlock, MainAimlockToggle = createToggle("Aimlock", MainTab, UDim2.new(0, 0, 0, 53))
+-- Create toggles with proper spacing (smaller and more centered)
+local MainESP, MainESPToggle = createToggle("ESP", MainTab, UDim2.new(0, 10, 0, 15))
+local MainAimlock, MainAimlockToggle = createToggle("Aimlock", MainTab, UDim2.new(0, 10, 0, 49))
 local MainKillNPC = Instance.new("TextButton")
-MainKillNPC.Size = UDim2.new(0, 120, 0, 28) -- Smaller
-MainKillNPC.Position = UDim2.new(0, 15, 0, 91)
+MainKillNPC.Size = UDim2.new(0, 110, 0, 22) -- Smaller
+MainKillNPC.Position = UDim2.new(0, 10, 0, 83)
 MainKillNPC.BackgroundColor3 = Color3.fromRGB(80, 60, 150)
 MainKillNPC.TextColor3 = Color3.fromRGB(255, 255, 255)
 MainKillNPC.Text = "Kill Nearest NPCs"
-MainKillNPC.TextSize = 11 -- Smaller
+MainKillNPC.TextSize = 9 -- Smaller
 MainKillNPC.Font = Enum.Font.Gotham
 MainKillNPC.BorderSizePixel = 0
 MainKillNPC.Parent = MainTab
 local ButtonCorner3 = Instance.new("UICorner")
-ButtonCorner3.CornerRadius = UDim.new(0, 6)
+ButtonCorner3.CornerRadius = UDim.new(0, 5)
 ButtonCorner3.Parent = MainKillNPC
 
 -- Farm Tab (includes Auto Obby)
-local FarmCash, FarmCashToggle = createToggle("Cash Farm", FarmTab, UDim2.new(0, 0, 0, 15))
-local FarmAutoObby, FarmAutoObbyToggle = createToggle("Auto Obby", FarmTab, UDim2.new(0, 0, 0, 53))
-local FarmFull, FarmFullToggle = createToggle("Reset if Full", FarmTab, UDim2.new(0, 0, 0, 91))
-local FarmSheriff, FarmSheriffToggle = createToggle("Reset if Sheriff", FarmTab, UDim2.new(0, 0, 0, 129))
-local FarmServerHop, FarmServerHopToggle = createToggle("Auto Server Hop", FarmTab, UDim2.new(0, 0, 0, 167))
+local FarmCash, FarmCashToggle = createToggle("Cash Farm", FarmTab, UDim2.new(0, 10, 0, 15))
+local FarmAutoObby, FarmAutoObbyToggle = createToggle("Auto Obby", FarmTab, UDim2.new(0, 10, 0, 49))
+local FarmFull, FarmFullToggle = createToggle("Reset if Full", FarmTab, UDim2.new(0, 10, 0, 83))
+local FarmSheriff, FarmSheriffToggle = createToggle("Reset if Sheriff", FarmTab, UDim2.new(0, 10, 0, 117))
 local FarmServerHopButton = Instance.new("TextButton")
-FarmServerHopButton.Size = UDim2.new(0, 120, 0, 28) -- Smaller
-FarmServerHopButton.Position = UDim2.new(0, 15, 0, 205)
+FarmServerHopButton.Size = UDim2.new(0, 110, 0, 22) -- Smaller
+FarmServerHopButton.Position = UDim2.new(0, 10, 0, 151)
 FarmServerHopButton.BackgroundColor3 = Color3.fromRGB(80, 60, 150)
 FarmServerHopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 FarmServerHopButton.Text = "Server Hop"
-FarmServerHopButton.TextSize = 11 -- Smaller
+FarmServerHopButton.TextSize = 9 -- Smaller
 FarmServerHopButton.Font = Enum.Font.Gotham
 FarmServerHopButton.BorderSizePixel = 0
 FarmServerHopButton.Parent = FarmTab
 local ButtonCorner2 = Instance.new("UICorner")
-ButtonCorner2.CornerRadius = UDim.new(0, 6)
+ButtonCorner2.CornerRadius = UDim.new(0, 5)
 ButtonCorner2.Parent = FarmServerHopButton
 
 -- Tasks Tab
-local TasksAutoTask, TasksAutoTaskToggle = createToggle("Auto Task", TasksTab, UDim2.new(0, 0, 0, 15))
-local TasksAutoTask2, TasksAutoTask2Toggle = createToggle("Auto Task 2", TasksTab, UDim2.new(0, 0, 0, 53))
-local TasksInstanceTask, TasksInstanceTaskToggle = createToggle("Instance Task", TasksTab, UDim2.new(0, 0, 0, 91))
+local TasksAutoTask, TasksAutoTaskToggle = createToggle("Auto Task", TasksTab, UDim2.new(0, 10, 0, 15))
+local TasksAutoTask2, TasksAutoTask2Toggle = createToggle("Auto Task 2", TasksTab, UDim2.new(0, 10, 0, 49))
+local TasksInstanceTask, TasksInstanceTaskToggle = createToggle("Auto Instance Task", TasksTab, UDim2.new(0, 10, 0, 83)) -- Renamed
 local TasksInstanceButton = Instance.new("TextButton")
-TasksInstanceButton.Size = UDim2.new(0, 120, 0, 28) -- Smaller
-TasksInstanceButton.Position = UDim2.new(0, 15, 0, 129)
+TasksInstanceButton.Size = UDim2.new(0, 110, 0, 22) -- Smaller
+TasksInstanceButton.Position = UDim2.new(0, 10, 0, 117)
 TasksInstanceButton.BackgroundColor3 = Color3.fromRGB(80, 60, 150)
 TasksInstanceButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 TasksInstanceButton.Text = "Instance Tasks"
-TasksInstanceButton.TextSize = 11 -- Smaller
+TasksInstanceButton.TextSize = 9 -- Smaller
 TasksInstanceButton.Font = Enum.Font.Gotham
 TasksInstanceButton.BorderSizePixel = 0
 TasksInstanceButton.Parent = TasksTab
 local ButtonCorner4 = Instance.new("UICorner")
-ButtonCorner4.CornerRadius = UDim.new(0, 6)
+ButtonCorner4.CornerRadius = UDim.new(0, 5)
 ButtonCorner4.Parent = TasksInstanceButton
 
 -- Player Tab
-local PlayerInfStamina, PlayerInfStaminaToggle = createToggle("Inf Stamina", PlayerTab, UDim2.new(0, 0, 0, 15))
-local PlayerToggleSpeed, PlayerToggleSpeedToggle = createToggle("Toggle Speed", PlayerTab, UDim2.new(0, 0, 0, 53))
-local PlayerToggleJump, PlayerToggleJumpToggle = createToggle("Toggle Jump", PlayerTab, UDim2.new(0, 0, 0, 91))
-local PlayerNoclip, PlayerNoclipToggle = createToggle("Noclip", PlayerTab, UDim2.new(0, 0, 0, 129))
-local PlayerSpeedBoost, PlayerSpeedBoostToggle = createToggle("Speed Boost", PlayerTab, UDim2.new(0, 0, 0, 167))
+local PlayerInfStamina, PlayerInfStaminaToggle = createToggle("Inf Stamina", PlayerTab, UDim2.new(0, 10, 0, 15))
+local PlayerToggleSpeed, PlayerToggleSpeedToggle = createToggle("Toggle Speed", PlayerTab, UDim2.new(0, 10, 0, 49))
+local PlayerToggleJump, PlayerToggleJumpToggle = createToggle("Toggle Jump", PlayerTab, UDim2.new(0, 10, 0, 83))
+local PlayerNoclip, PlayerNoclipToggle = createToggle("Noclip", PlayerTab, UDim2.new(0, 10, 0, 117))
 local PlayerFullBright = Instance.new("TextButton")
-PlayerFullBright.Size = UDim2.new(0, 120, 0, 28) -- Smaller
-PlayerFullBright.Position = UDim2.new(0, 15, 0, 205)
+PlayerFullBright.Size = UDim2.new(0, 110, 0, 22) -- Smaller
+PlayerFullBright.Position = UDim2.new(0, 10, 0, 151)
 PlayerFullBright.BackgroundColor3 = Color3.fromRGB(80, 60, 150)
 PlayerFullBright.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlayerFullBright.Text = "FullBright"
-PlayerFullBright.TextSize = 11 -- Smaller
+PlayerFullBright.TextSize = 9 -- Smaller
 PlayerFullBright.Font = Enum.Font.Gotham
 PlayerFullBright.BorderSizePixel = 0
 PlayerFullBright.Parent = PlayerTab
 local ButtonCorner5 = Instance.new("UICorner")
-ButtonCorner5.CornerRadius = UDim.new(0, 6)
+ButtonCorner5.CornerRadius = UDim.new(0, 5)
 ButtonCorner5.Parent = PlayerFullBright
 
--- Create tab buttons (only 4 tabs)
+-- Speed and Jump Inputs (positioned under their toggles)
+local SpeedInput = Instance.new("TextBox")
+SpeedInput.Size = UDim2.new(0, 90, 0, 20) -- Smaller
+SpeedInput.Position = UDim2.new(0, 130, 0, 49) -- Under Toggle Speed
+SpeedInput.BackgroundColor3 = Color3.fromRGB(50, 45, 75)
+SpeedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+SpeedInput.Text = "22"
+SpeedInput.PlaceholderText = "Speed"
+SpeedInput.TextSize = 9 -- Smaller
+SpeedInput.Font = Enum.Font.Gotham
+SpeedInput.BorderSizePixel = 0
+SpeedInput.Parent = PlayerTab
+local InputCorner1 = Instance.new("UICorner")
+InputCorner1.CornerRadius = UDim.new(0, 4)
+InputCorner1.Parent = SpeedInput
+
+local JumpInput = Instance.new("TextBox")
+JumpInput.Size = UDim2.new(0, 90, 0, 20) -- Smaller
+JumpInput.Position = UDim2.new(0, 130, 0, 83) -- Under Toggle Jump
+JumpInput.BackgroundColor3 = Color3.fromRGB(50, 45, 75)
+JumpInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+JumpInput.Text = "50"
+JumpInput.PlaceholderText = "Jump"
+JumpInput.TextSize = 9 -- Smaller
+JumpInput.Font = Enum.Font.Gotham
+JumpInput.BorderSizePixel = 0
+JumpInput.Parent = PlayerTab
+local InputCorner2 = Instance.new("UICorner")
+InputCorner2.CornerRadius = UDim.new(0, 4)
+InputCorner2.Parent = JumpInput
+
+-- Create tab buttons
 local MainTabButton = createTabButton("Main", UDim2.new(0, 0, 0, 0))
 local FarmTabButton = createTabButton("Farm", UDim2.new(0.25, 0, 0, 0))
 local TasksTabButton = createTabButton("Tasks", UDim2.new(0.5, 0, 0, 0))
@@ -546,23 +584,25 @@ switchTab(MainTab)
 MainTabButton.BackgroundColor3 = Color3.fromRGB(70, 50, 120)
 
 local isOpen = false
-local frameTweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local frameTweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
 
 ToggleButton.MouseButton1Click:Connect(function()
     isOpen = not isOpen
     
-    if not MainFrame.Visible then
+    if isOpen then
         MainFrame.Visible = true
+        local tween = TweenService:Create(MainFrame, frameTweenInfo, {Size = UDim2.new(0, 380, 0, 250)})
+        tween:Play()
+        ToggleButton.Text = "X"
+    else
+        local tween = TweenService:Create(MainFrame, frameTweenInfo, {Size = UDim2.new(0, 380, 0, 45)})
+        tween:Play()
+        wait(0.3)
+        MainFrame.Visible = false
+        ToggleButton.Text = "M"
     end
     
-    local targetSize = isOpen and UDim2.new(0, 400, 0, 250) or UDim2.new(0, 400, 0, 50)
-    local tween = TweenService:Create(MainFrame, frameTweenInfo, {Size = targetSize})
-    tween:Play()
-    
-    local textTween = TweenService:Create(ToggleButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Text = isOpen and "X" or "M"})
-    textTween:Play()
-    
-    local rotateTween = TweenService:Create(ToggleButton, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Rotation = isOpen and 180 or 0})
+    local rotateTween = TweenService:Create(ToggleButton, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Rotation = isOpen and 180 or 0})
     rotateTween:Play()
 end)
 
@@ -622,9 +662,7 @@ local function updateSpeed()
     local character = player.Character
     if character and character:FindFirstChild("Humanoid") then
         local humanoid = character.Humanoid
-        if featureStates.SpeedBoost then
-            humanoid.WalkSpeed = 29
-        elseif featureStates.ToggleSpeed then
+        if featureStates.ToggleSpeed then
             humanoid.WalkSpeed = tonumber(speedValue) or 22
         else
             if player.Team and player.Team.Name == "Lobby" then
@@ -837,14 +875,6 @@ connections.sheriff = RunService.Heartbeat:Connect(function()
     end
 end)
 
-connections.serverhop = RunService.Heartbeat:Connect(function()
-    if featureStates.ServerHopToggle then
-        if #Players:GetPlayers() <= 3 then
-            serverHop()
-        end
-    end
-end)
-
 connections.autotask2 = RunService.Heartbeat:Connect(function()
     if featureStates.AutoTask2 then
         pcall(function()
@@ -990,48 +1020,17 @@ PlayerFullBright.MouseButton1Click:Connect(function()
     Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
 end)
 
--- Speed and Jump Inputs (smaller)
-local SpeedInput = Instance.new("TextBox")
-SpeedInput.Size = UDim2.new(0, 100, 0, 24) -- Smaller
-SpeedInput.Position = UDim2.new(0, 15, 0, 243)
-SpeedInput.BackgroundColor3 = Color3.fromRGB(50, 45, 75)
-SpeedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-SpeedInput.Text = "22"
-SpeedInput.PlaceholderText = "Speed Value"
-SpeedInput.TextSize = 11 -- Smaller
-SpeedInput.Font = Enum.Font.Gotham
-SpeedInput.BorderSizePixel = 0
-SpeedInput.Parent = PlayerTab
-local InputCorner1 = Instance.new("UICorner")
-InputCorner1.CornerRadius = UDim.new(0, 5)
-InputCorner1.Parent = SpeedInput
-
 SpeedInput.FocusLost:Connect(function()
     speedValue = tonumber(SpeedInput.Text) or 22
     updateSpeed()
 end)
-
-local JumpInput = Instance.new("TextBox")
-JumpInput.Size = UDim2.new(0, 100, 0, 24) -- Smaller
-JumpInput.Position = UDim2.new(0, 15, 0, 281)
-JumpInput.BackgroundColor3 = Color3.fromRGB(50, 45, 75)
-JumpInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-JumpInput.Text = "50"
-JumpInput.PlaceholderText = "Jump Value"
-JumpInput.TextSize = 11 -- Smaller
-JumpInput.Font = Enum.Font.Gotham
-JumpInput.BorderSizePixel = 0
-JumpInput.Parent = PlayerTab
-local InputCorner2 = Instance.new("UICorner")
-InputCorner2.CornerRadius = UDim.new(0, 5)
-InputCorner2.Parent = JumpInput
 
 JumpInput.FocusLost:Connect(function()
     jumpValue = tonumber(JumpInput.Text) or 50
     updateJump()
 end)
 
--- Dragging functionality
+-- Dragging functionality for both toggle button and GUI
 local dragging = false
 local dragInput, dragStart, startPos
 
@@ -1086,4 +1085,4 @@ player.CharacterAdded:Connect(function()
     updateNoclip()
 end)
 
-showNotification("MooCore Loaded", "GUI Size: 400x250\nAll features integrated!", Color3.fromRGB(140, 80, 220))
+showNotification("MooCore Loaded", "GUI Size: 380x250\nUpdated URL & Features!", Color3.fromRGB(140, 80, 220))
